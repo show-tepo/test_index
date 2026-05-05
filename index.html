@@ -1,47 +1,58 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GitHub Pages Test</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #f7f7ff, #e8f4ff);
-      color: #1f2937;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-    }
-    main {
-      background: white;
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.12);
-      max-width: 720px;
-      margin: 24px;
-      text-align: center;
-    }
-    h1 { margin-top: 0; font-size: clamp(2rem, 5vw, 3.5rem); }
-    p { font-size: 1.1rem; line-height: 1.8; }
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #3730a3;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<title>お盆ガード100%</title>
+<style>
+  :root{--bg:#fff7ed;--ink:#231f20;--accent:#ef4444;--ok:#16a34a;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#fff7ed,#fde68a);color:var(--ink);min-height:100vh;overflow:hidden;touch-action:none}
+  header{position:fixed;top:0;left:0;right:0;z-index:5;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:900;text-shadow:0 1px 0 #fff}
+  .pill{background:#fff;border:3px solid #111;border-radius:999px;padding:7px 12px;box-shadow:0 4px 0 #111;font-size:14px}
+  #stage{position:fixed;inset:54px 10px 18px;border:4px solid #111;border-radius:28px;background:linear-gradient(#bfdbfe 0 58%,#86efac 58%);overflow:hidden;box-shadow:0 10px 0 #111}
+  #clouds{position:absolute;inset:0;background:radial-gradient(circle at 20% 16%,#fff 0 34px,transparent 36px),radial-gradient(circle at 70% 24%,#fff 0 28px,transparent 30px),radial-gradient(circle at 90% 12%,#fff 0 20px,transparent 22px);opacity:.9}
+  #walker{position:absolute;width:92px;height:168px;left:40%;top:42%;transform:translate(-50%,-50%);transition:filter .1s;z-index:2}
+  .head{position:absolute;left:27px;top:0;width:38px;height:38px;background:#f4b183;border:3px solid #111;border-radius:50%}
+  .hair{position:absolute;left:24px;top:-4px;width:44px;height:18px;background:#111;border-radius:50% 50% 35% 35%}
+  .body{position:absolute;left:24px;top:36px;width:44px;height:78px;background:#f4b183;border:3px solid #111;border-radius:24px 24px 18px 18px}
+  .arm{position:absolute;top:44px;width:20px;height:70px;background:#f4b183;border:3px solid #111;border-radius:14px;transform-origin:top center;animation:swing .55s infinite alternate ease-in-out}
+  .arm.l{left:7px}.arm.r{right:7px;animation-delay:.25s}
+  .leg{position:absolute;top:105px;width:20px;height:60px;background:#f4b183;border:3px solid #111;border-radius:14px;transform-origin:top center;animation:walk .45s infinite alternate ease-in-out}
+  .leg.l{left:25px}.leg.r{right:25px;animation-delay:.22s}
+  .face{position:absolute;left:8px;top:15px;font-size:16px;font-weight:900}.tie{position:absolute;left:39px;top:42px;font-size:26px;z-index:3}
+  @keyframes swing{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+  @keyframes walk{from{transform:rotate(14deg)}to{transform:rotate(-14deg)}}
+  #tray{position:absolute;width:118px;height:82px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe08a,#b45309 65%,#78350f);border:5px solid #111;box-shadow:0 8px 0 rgba(0,0,0,.35);z-index:4;left:50%;top:70%;transform:translate(-50%,-50%);display:grid;place-items:center;font-weight:900;color:#111}
+  #tray:after{content:"お盆";font-size:22px;text-shadow:0 1px #fff}
+  .danger #tray{animation:pulse .22s infinite alternate}.danger #walker{filter:drop-shadow(0 0 10px red)}
+  @keyframes pulse{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.08)}}
+  #modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:grid;place-items:center;z-index:10;padding:22px}
+  .card{background:#fff;border:4px solid #111;border-radius:28px;box-shadow:0 10px 0 #111;padding:24px;max-width:520px;text-align:center}
+  h1{font-size:34px;line-height:1.1;margin:0 0 8px}.lead{line-height:1.7;font-weight:700}.small{font-size:13px;color:#555;line-height:1.6}
+  button{font:inherit;font-weight:900;border:4px solid #111;border-radius:999px;padding:13px 22px;background:#facc15;box-shadow:0 6px 0 #111;margin-top:10px}
+  #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:6;background:#111;color:#fff;border-radius:999px;padding:10px 16px;font-weight:900;display:none}
+</style>
 </head>
 <body>
-  <main>
-    <div class="badge">GitHub Pages Test</div>
-    <h1>公開テストページ</h1>
-    <p>このページは ChatGPT から GitHub リポジトリに作成したテスト用の静的HTMLです。</p>
-    <p>表示できていれば、GitHub Pages の準備はほぼOKです。</p>
-  </main>
+<header><div class="pill">🍱 お盆ガード100%</div><div class="pill">SCORE <span id="score">0.0</span></div></header>
+<div id="stage"><div id="clouds"></div><div id="walker" aria-label="くだらない全裸風キャラ"><div class="hair"></div><div class="head"><div class="face">•ᴗ•</div></div><div class="arm l"></div><div class="arm r"></div><div class="body"><div class="tie">👔</div></div><div class="leg l"></div><div class="leg r"></div></div><div id="tray"></div></div>
+<div id="toast">見えてる！隠して！</div>
+<div id="modal"><div class="card"><h1>お盆ガード100%</h1><p class="lead">背後をうろつく「ほぼアウトな人」を、お盆で隠し続けろ！<br>お盆をドラッグして、胴体の中心をガード。ズレすぎるとゲームオーバー。</p><p class="small">※絵はコミカルなデフォルメです。露骨な表現はありません。</p><button id="start">スタート</button></div></div>
+<script>
+const stage=document.getElementById('stage'),walker=document.getElementById('walker'),tray=document.getElementById('tray'),scoreEl=document.getElementById('score'),modal=document.getElementById('modal'),toast=document.getElementById('toast');
+let playing=false,score=0,last=0,wx=220,wy=220,vx=120,vy=70,tx=260,ty=360,drag=false,over=0;
+function rect(){return stage.getBoundingClientRect()}
+function setTray(x,y){const r=rect();tx=Math.max(58,Math.min(r.width-58,x));ty=Math.max(41,Math.min(r.height-41,y));tray.style.left=tx+'px';tray.style.top=ty+'px'}
+function pointer(e){const r=rect();const p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}
+tray.addEventListener('pointerdown',e=>{drag=true;tray.setPointerCapture(e.pointerId);const p=pointer(e);setTray(p.x,p.y)});
+tray.addEventListener('pointermove',e=>{if(drag){const p=pointer(e);setTray(p.x,p.y)}});
+tray.addEventListener('pointerup',()=>drag=false);stage.addEventListener('pointermove',e=>{if(drag){const p=pointer(e);setTray(p.x,p.y)}});
+function reset(){const r=rect();wx=r.width*.5;wy=r.height*.45;vx=150;vy=90;score=0;over=0;setTray(r.width*.5,r.height*.62);last=performance.now();playing=true;modal.style.display='none';requestAnimationFrame(loop)}
+function gameOver(){playing=false;modal.style.display='grid';modal.querySelector('h1').textContent='見えちゃった！';modal.querySelector('.lead').innerHTML='記録：'+score.toFixed(1)+' 秒<br>もう一回、お盆さばきを鍛えよう。';document.getElementById('start').textContent='もう一回'}
+function loop(t){if(!playing)return;const dt=Math.min(.033,(t-last)/1000);last=t;const r=rect();const speed=1+score/18;wx+=vx*dt*speed;wy+=vy*dt*speed;if(wx<48||wx>r.width-48){vx*=-1;wx=Math.max(48,Math.min(r.width-48,wx));}if(wy<82||wy>r.height-88){vy*=-1;wy=Math.max(82,Math.min(r.height-88,wy));}if(Math.random()<.015){vx+=(Math.random()-.5)*120;vy+=(Math.random()-.5)*100;vx=Math.max(-260,Math.min(260,vx));vy=Math.max(-200,Math.min(200,vy));}
+walker.style.left=wx+'px';walker.style.top=wy+'px';const targetX=wx,targetY=wy+42;const d=Math.hypot(tx-targetX,ty-targetY);const safe=d<48;if(!safe)over+=dt;else over=Math.max(0,over-dt*1.8);document.body.classList.toggle('danger',!safe);toast.style.display=!safe?'block':'none';score+=dt;scoreEl.textContent=score.toFixed(1);if(over>.65)gameOver();else requestAnimationFrame(loop)}
+document.getElementById('start').onclick=reset;addEventListener('resize',()=>{const r=rect();setTray(Math.min(tx,r.width-58),Math.min(ty,r.height-41))});
+</script>
 </body>
 </html>
