@@ -30,20 +30,17 @@
   #modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:grid;place-items:center;z-index:10;padding:22px}
   .card{background:#fff;border:4px solid #111;border-radius:28px;box-shadow:0 10px 0 #111;padding:24px;max-width:520px;text-align:center}
   h1{font-size:34px;line-height:1.1;margin:0 0 8px}.lead{line-height:1.7;font-weight:700}.small{font-size:13px;color:#555;line-height:1.6}
-  button,.share{font:inherit;font-weight:900;border:4px solid #111;border-radius:999px;padding:13px 22px;background:#facc15;box-shadow:0 6px 0 #111;margin-top:10px;display:inline-block;text-decoration:none;color:#111}
-  .share{background:#dbeafe;margin-left:6px}
+  button{font:inherit;font-weight:900;border:4px solid #111;border-radius:999px;padding:13px 22px;background:#facc15;box-shadow:0 6px 0 #111;margin-top:10px}
   #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:6;background:#111;color:#fff;border-radius:999px;padding:10px 16px;font-weight:900;display:none}
-  #ranking{margin:12px auto 0;text-align:left;max-width:280px;font-weight:800;line-height:1.8}
 </style>
 </head>
 <body>
 <header><div class="pill">🍱 お盆ガード100%</div><div class="pill">SCORE <span id="score">0.0</span></div></header>
 <div id="stage"><div id="clouds"></div><div id="walker" aria-label="くだらない全裸風キャラ"><div class="hair"></div><div class="head"><div class="face">•ᴗ•</div></div><div class="arm l"></div><div class="arm r"></div><div class="body"><div class="tie">👔</div></div><div class="leg l"></div><div class="leg r"></div></div><div id="tray"></div></div>
 <div id="toast">見えてる！隠して！</div>
-<div id="modal"><div class="card"><h1>お盆ガード100%</h1><p class="lead">背後をうろつく「ほぼアウトな人」を、お盆で隠し続けろ！<br>お盆をドラッグして、胴体の中心をガード。ズレすぎるとゲームオーバー。</p><p class="small">※絵はコミカルなデフォルメです。露骨な表現はありません。</p><ol id="ranking"></ol><div id="actions"><button id="start">スタート</button></div></div></div>
-<script src="js/ranking.js"></script>
+<div id="modal"><div class="card"><h1>お盆ガード100%</h1><p class="lead">背後をうろつく「ほぼアウトな人」を、お盆で隠し続けろ！<br>お盆をドラッグして、胴体の中心をガード。ズレすぎるとゲームオーバー。</p><p class="small">※絵はコミカルなデフォルメです。露骨な表現はありません。</p><button id="start">スタート</button></div></div>
 <script>
-const stage=document.getElementById('stage'),walker=document.getElementById('walker'),tray=document.getElementById('tray'),scoreEl=document.getElementById('score'),modal=document.getElementById('modal'),toast=document.getElementById('toast'),ranking=document.getElementById('ranking'),actions=document.getElementById('actions');
+const stage=document.getElementById('stage'),walker=document.getElementById('walker'),tray=document.getElementById('tray'),scoreEl=document.getElementById('score'),modal=document.getElementById('modal'),toast=document.getElementById('toast');
 let playing=false,score=0,last=0,wx=220,wy=220,vx=120,vy=70,tx=260,ty=360,drag=false,over=0;
 function rect(){return stage.getBoundingClientRect()}
 function setTray(x,y){const r=rect();tx=Math.max(58,Math.min(r.width-58,x));ty=Math.max(41,Math.min(r.height-41,y));tray.style.left=tx+'px';tray.style.top=ty+'px'}
@@ -51,10 +48,8 @@ function pointer(e){const r=rect();const p=e.touches?e.touches[0]:e;return{x:p.c
 tray.addEventListener('pointerdown',e=>{drag=true;tray.setPointerCapture(e.pointerId);const p=pointer(e);setTray(p.x,p.y)});
 tray.addEventListener('pointermove',e=>{if(drag){const p=pointer(e);setTray(p.x,p.y)}});
 tray.addEventListener('pointerup',()=>drag=false);stage.addEventListener('pointermove',e=>{if(drag){const p=pointer(e);setTray(p.x,p.y)}});
-function showRanking(){const rows=KusogeRanking.load('obon');ranking.innerHTML=rows.length?'<b>🏆 ローカルTOP5</b>'+rows.map((r,i)=>`<li>#${i+1} ${r.name}：${r.score.toFixed(1)}秒</li>`).join(''):''}
-function reset(){const r=rect();wx=r.width*.5;wy=r.height*.45;vx=150;vy=90;score=0;over=0;ranking.innerHTML='';actions.innerHTML='<button id="start">スタート</button>';document.getElementById('start').onclick=reset;setTray(r.width*.5,r.height*.62);last=performance.now();playing=true;modal.style.display='none';requestAnimationFrame(loop)}
-function shareUrl(s){const text=`お盆ガード100%で ${s.toFixed(1)}秒 耐えた！\nお盆で隠せ。見えたら負け。\n#お盆ガード100 #クソゲー`;return 'https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent('https://show-tepo.github.io/test_index/')}
-function gameOver(){playing=false;const name=prompt('名前を入力（ランキング用）','名無し')||'名無し';KusogeRanking.save('obon',score,name);modal.style.display='grid';modal.querySelector('h1').textContent='見えちゃった！';modal.querySelector('.lead').innerHTML='記録：'+score.toFixed(1)+' 秒<br>もう一回、お盆さばきを鍛えよう。';modal.querySelector('.small').textContent='Xでスコア投稿すると、みんなでゆるく競えます。';actions.innerHTML='<button id="start">もう一回</button><a class="share" target="_blank" rel="noopener" href="'+shareUrl(score)+'">Xでスコア投稿</a>';document.getElementById('start').onclick=reset;showRanking()}
+function reset(){const r=rect();wx=r.width*.5;wy=r.height*.45;vx=150;vy=90;score=0;over=0;setTray(r.width*.5,r.height*.62);last=performance.now();playing=true;modal.style.display='none';requestAnimationFrame(loop)}
+function gameOver(){playing=false;modal.style.display='grid';modal.querySelector('h1').textContent='見えちゃった！';modal.querySelector('.lead').innerHTML='記録：'+score.toFixed(1)+' 秒<br>もう一回、お盆さばきを鍛えよう。';modal.querySelector('.small').textContent='※絵はコミカルなデフォルメです。露骨な表現はありません。';document.getElementById('start').textContent='もう一回'}
 function loop(t){if(!playing)return;const dt=Math.min(.033,(t-last)/1000);last=t;const r=rect();const speed=1+score/18;wx+=vx*dt*speed;wy+=vy*dt*speed;if(wx<48||wx>r.width-48){vx*=-1;wx=Math.max(48,Math.min(r.width-48,wx));}if(wy<82||wy>r.height-88){vy*=-1;wy=Math.max(82,Math.min(r.height-88,wy));}if(Math.random()<.015){vx+=(Math.random()-.5)*120;vy+=(Math.random()-.5)*100;vx=Math.max(-260,Math.min(260,vx));vy=Math.max(-200,Math.min(200,vy));}
 walker.style.left=wx+'px';walker.style.top=wy+'px';const targetX=wx,targetY=wy+42;const d=Math.hypot(tx-targetX,ty-targetY);const safe=d<48;if(!safe)over+=dt;else over=Math.max(0,over-dt*1.8);document.body.classList.toggle('danger',!safe);toast.style.display=!safe?'block':'none';score+=dt;scoreEl.textContent=score.toFixed(1);if(over>.65)gameOver();else requestAnimationFrame(loop)}
 document.getElementById('start').onclick=reset;addEventListener('resize',()=>{const r=rect();setTray(Math.min(tx,r.width-58),Math.min(ty,r.height-41))});
